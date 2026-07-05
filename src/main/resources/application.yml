@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: edusuite-platform
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/edusuite
+    username: edusuite_app
+    password: ${DB_PASSWORD:change_me_in_every_environment}
+    # IMPORTANT: must be edusuite_app (created in V2 migration), never the Flyway/owner user -
+    # see the comment block at the top of V2__create_restricted_app_role.sql for why.
+
+  jpa:
+    hibernate:
+      ddl-auto: validate   # schema changes only via Flyway migrations, never Hibernate auto-DDL
+    open-in-view: false    # avoid the classic OSIV footgun; be deliberate about transaction boundaries
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    # Flyway should connect with a role that owns the schema (separate from edusuite_app) so it
+    # can run DDL including the CREATE ROLE statement in V2. Configure a distinct
+    # spring.flyway.url/user/password pointing at a migration-only role in real environments;
+    # for local dev, the default postgres superuser is acceptable.
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/edusuite
+          # Points at the Keycloak realm imported from keycloak/realm-export.json
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

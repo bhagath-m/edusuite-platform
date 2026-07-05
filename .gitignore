@@ -1,0 +1,42 @@
+# ------------------------------------------------------------------------------
+# EduSuite root .gitignore
+# ------------------------------------------------------------------------------
+
+# macOS metadata
+.DS_Store
+._*
+
+# JetBrains / IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio Code
+.vscode/
+
+# Eclipse / STS
+.classpath
+.project
+.settings/
+
+# Build output
+target/
+build/
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+logs/
+
+# Environment and secrets
+.env
+.env.*
+*.local
+application-local*.yml
+
+# Windows OS files
+Thumbs.db
+desktop.ini
