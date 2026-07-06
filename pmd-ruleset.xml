@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!--
+  PMD ruleset for the EduSuite platform.
+
+  Uses rulesets/java/quickstart.xml as a base and explicitly adds security
+  and best-practice rules. Rules that conflict with Java records or common
+  Spring Boot idioms are excluded.
+-->
+<ruleset name="EduSuite PMD Ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        PMD ruleset for EduSuite: quickstart foundation plus security and
+        best-practice rules, with exemptions for Spring Boot and Java records.
+    </description>
+
+    <!-- Base rulesets -->
+    <rule ref="rulesets/java/quickstart.xml">
+        <!-- Exclusions for Spring Boot / Java idioms -->
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="AvoidFieldNameMatchingMethodName"/>
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="AvoidLiteralsInIfCondition"/>
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="CommentDefaultAccessModifier"/>
+        <exclude name="DataClass"/>
+        <exclude name="ExcessiveImports"/>
+        <exclude name="ImplicitSwitchFallThrough"/>
+        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+        <exclude name="JUnitTestContainsTooManyAsserts"/>
+        <exclude name="LawOfDemeter"/>
+        <exclude name="LoosePackageCoupling"/>
+        <exclude name="MissingOverride"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="ShortClassName"/>
+        <exclude name="ShortMethodName"/>
+        <exclude name="ShortVariable"/>
+        <exclude name="TooManyFields"/>
+        <exclude name="TooManyMethods"/>
+        <exclude name="UseObjectForClearerAPI"/>
+        <exclude name="UseUtilityClass"/>
+    </rule>
+
+    <!-- Security rules -->
+    <rule ref="rulesets/java/security.xml">
+        <exclude name="HardCodedCryptoKey"/>
+    </rule>
+
+    <!-- Best-practice rules -->
+    <rule ref="rulesets/java/bestpractices.xml">
+        <exclude name="AvoidReassigningLoopVariables"/>
+        <exclude name="AvoidReassigningParameters"/>
+        <exclude name="LooseCoupling"/>
+        <exclude name="UseCollectionIsEmpty"/>
+        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+        <exclude name="JUnitTestContainsTooManyAsserts"/>
+    </rule>
+
+    <!-- Error-prone rules useful for modern Java/Spring code -->
+    <rule ref="rulesets/java/errorprone.xml">
+        <exclude name="AvoidFieldNameMatchingTypeName"/>
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="CloneMethodMustImplementCloneable"/>
+        <exclude name="DataflowAnomalyAnalysis"/>
+        <exclude name="MissingSerialVersionUID"/>
+        <exclude name="NullAssignment"/>
+        <exclude name="UseLocaleWithCaseConversions"/>
+    </rule>
+
+    <!-- Performance rules -->
+    <rule ref="rulesets/java/performance.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="ConsecutiveAppendsShouldReuse"/>
+        <exclude name="InsufficientStringBufferDeclaration"/>
+        <exclude name="SimplifyStartsWith"/>
+        <exclude name="UseStringBufferForStringAppends"/>
+    </rule>
+
+    <!-- Style rules that are generally safe for Spring Boot -->
+    <rule ref="rulesets/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="CallSuperInConstructor"/>
+        <exclude name="CommentDefaultAccessModifier"/>
+        <exclude name="ConfusingTernary"/>
+        <exclude name="EmptyControlStatement"/>
+        <exclude name="LocalVariableCouldBeFinal"/>
+        <exclude name="LongVariable"/>
+        <exclude name="MethodArgumentCouldBeFinal"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="PrematureDeclaration"/>
+        <exclude name="ShortClassName"/>
+        <exclude name="ShortMethodName"/>
+        <exclude name="ShortVariable"/>
+        <exclude name="TooManyStaticImports"/>
+        <exclude name="UnnecessaryAnnotationValueElement"/>
+        <exclude name="UnnecessaryConstructor"/>
+        <exclude name="UseDiamondOperator"/>
+        <exclude name="UselessParentheses"/>
+    </rule>
+
+    <!-- Design rules -->
+    <rule ref="rulesets/java/design.xml">
+        <exclude name="AbstractClassWithoutAnyMethod"/>
+        <exclude name="AvoidThrowingRawExceptionTypes"/>
+        <exclude name="AvoidUncheckedExceptionsInSignatures"/>
+        <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
+        <exclude name="CognitiveComplexity"/>
+        <exclude name="CouplingBetweenObjects"/>
+        <exclude name="DataClass"/>
+        <exclude name="ExceptionAsFlowControl"/>
+        <exclude name="ExcessiveClassLength"/>
+        <exclude name="ExcessiveImports"/>
+        <exclude name="ExcessiveMethodLength"/>
+        <exclude name="ExcessiveParameterList"/>
+        <exclude name="FinalFieldCouldBeStatic"/>
+        <exclude name="GodClass"/>
+        <exclude name="ImmutableField"/>
+        <exclude name="LawOfDemeter"/>
+        <exclude name="LoosePackageCoupling"/>
+        <exclude name="NPathComplexity"/>
+        <exclude name="SimplifyBooleanReturns"/>
+        <exclude name="SimplifyConditional"/>
+        <exclude name="SingularField"/>
+        <exclude name="TooManyFields"/>
+        <exclude name="TooManyMethods"/>
+        <exclude name="UseObjectForClearerAPI"/>
+        <exclude name="UseUtilityClass"/>
+    </rule>
+
+    <!-- Multithreading -->
+    <rule ref="rulesets/java/multithreading.xml">
+        <exclude name="DoNotUseThreads"/>
+        <exclude name="UseConcurrentHashMap"/>
+    </rule>
+
+</ruleset>

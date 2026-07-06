@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SpotBugs exclusion filter for the EduSuite platform.
+
+  Find-Sec-Bugs is enabled via the spotbugs-maven-plugin dependency on
+  com.h3xstream.findsecbugs:findsecbugs-plugin.
+
+  This file suppresses findings in generated code, test fixtures, and common
+  Spring/JPA false positives (e.g. injection, entity equals/hashCode, mutable
+  arrays in framework-managed components).
+-->
+<FindBugsFilter>
+
+    <!-- Generated code -->
+    <Match>
+        <Or>
+            <Class name="~.*\.generated\..*"/>
+            <Class name="~.*\._.*"/>
+            <Source name="~.*target/generated-sources/.*"/>
+            <Source name="~.*build/generated/.*"/>
+        </Or>
+    </Match>
+
+    <!-- Test fixtures and tests -->
+    <Match>
+        <Or>
+            <Class name="~.*Test"/>
+            <Class name="~.*Test\$.*"/>
+            <Class name="~.*IT"/>
+            <Class name="~.*IT\$.*"/>
+            <Class name="~.*Dummy.*"/>
+            <Source name="~.*src/test/.*"/>
+        </Or>
+    </Match>
+
+    <!-- Spring dependency injection is framework-managed -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,MS_EXPOSE_REP,NP_NONNULL_PARAM_VIOLATION"/>
+        <Or>
+            <Class name="~.*\.config\..*"/>
+            <Class name="~.*\.Configuration"/>
+            <Class name="~.*Controller"/>
+            <Class name="~.*Service"/>
+            <Class name="~.*Repository"/>
+            <Class name="~.*Provider"/>
+            <Class name="~.*Resolver"/>
+            <Class name="~.*Filter"/>
+            <Class name="~.*Listener"/>
+            <Class name="~.*Publisher"/>
+            <Class name="~.*Aspect"/>
+        </Or>
+    </Match>
+
+    <!-- JPA entities: mutable fields are expected; equals/hashCode cannot always use all fields -->
+    <Match>
+        <Or>
+            <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+            <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+        </Or>
+        <Class name="~.*\.entity\..*"/>
+    </Match>
+
+    <!-- Records expose components intentionally -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+        <Class name="~.*\$.*Record.*"/>
+    </Match>
+
+    <!-- @Autowired/@Value fields: SpotBugs warns on unwritten/read fields that Spring wires reflectively -->
+    <Match>
+        <Bug pattern="UWF_UNWRITTEN_FIELD,URF_UNREAD_FIELD,NP_UNWRITTEN_FIELD"/>
+        <Field type="org.springframework.core.env.Environment"/>
+    </Match>
+
+    <!-- Common false positives -->
+    <Match>
+        <Bug pattern="SE_BAD_FIELD"/>
+        <Class name="~.*\.config\..*"/>
+    </Match>
+
+    <!-- Controllers often intentionally expose internal collections/services for serialization -->
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP"/>
+        <Or>
+            <Method name="get.*" returns="java.util.List"/>
+            <Method name="get.*" returns="java.util.Set"/>
+            <Method name="get.*" returns="java.util.Map"/>
+        </Or>
+    </Match>
+
+</FindBugsFilter>
