@@ -2,8 +2,8 @@
 <!--
   PMD ruleset for the EduSuite platform.
 
-  Uses rulesets/java/quickstart.xml as a base and explicitly adds security
-  and best-practice rules. Rules that conflict with Java records or common
+  Uses the modern PMD 7 category-based rule references required by
+  maven-pmd-plugin 3.28.0. Rules that conflict with Java records or common
   Spring Boot idioms are excluded.
 -->
 <ruleset name="EduSuite PMD Ruleset"
@@ -12,74 +12,22 @@
          xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.net/ruleset_2_0_0.xsd">
 
     <description>
-        PMD ruleset for EduSuite: quickstart foundation plus security and
-        best-practice rules, with exemptions for Spring Boot and Java records.
+        PMD ruleset for EduSuite: category-based rules for PMD 7 plus security
+        and best-practice rules, with exemptions for Spring Boot and Java records.
     </description>
 
-    <!-- Base rulesets -->
-    <rule ref="rulesets/java/quickstart.xml">
-        <!-- Exclusions for Spring Boot / Java idioms -->
-        <exclude name="AtLeastOneConstructor"/>
-        <exclude name="AvoidFieldNameMatchingMethodName"/>
-        <exclude name="AvoidInstantiatingObjectsInLoops"/>
-        <exclude name="AvoidLiteralsInIfCondition"/>
-        <exclude name="BeanMembersShouldSerialize"/>
-        <exclude name="CommentDefaultAccessModifier"/>
-        <exclude name="DataClass"/>
-        <exclude name="ExcessiveImports"/>
-        <exclude name="ImplicitSwitchFallThrough"/>
-        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
-        <exclude name="JUnitTestContainsTooManyAsserts"/>
-        <exclude name="LawOfDemeter"/>
-        <exclude name="LoosePackageCoupling"/>
-        <exclude name="MissingOverride"/>
-        <exclude name="OnlyOneReturn"/>
-        <exclude name="ShortClassName"/>
-        <exclude name="ShortMethodName"/>
-        <exclude name="ShortVariable"/>
-        <exclude name="TooManyFields"/>
-        <exclude name="TooManyMethods"/>
-        <exclude name="UseObjectForClearerAPI"/>
-        <exclude name="UseUtilityClass"/>
-    </rule>
-
-    <!-- Security rules -->
-    <rule ref="rulesets/java/security.xml">
-        <exclude name="HardCodedCryptoKey"/>
-    </rule>
-
     <!-- Best-practice rules -->
-    <rule ref="rulesets/java/bestpractices.xml">
+    <rule ref="category/java/bestpractices.xml">
         <exclude name="AvoidReassigningLoopVariables"/>
         <exclude name="AvoidReassigningParameters"/>
-        <exclude name="LooseCoupling"/>
-        <exclude name="UseCollectionIsEmpty"/>
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
         <exclude name="JUnitTestContainsTooManyAsserts"/>
-    </rule>
-
-    <!-- Error-prone rules useful for modern Java/Spring code -->
-    <rule ref="rulesets/java/errorprone.xml">
-        <exclude name="AvoidFieldNameMatchingTypeName"/>
-        <exclude name="BeanMembersShouldSerialize"/>
-        <exclude name="CloneMethodMustImplementCloneable"/>
-        <exclude name="DataflowAnomalyAnalysis"/>
-        <exclude name="MissingSerialVersionUID"/>
-        <exclude name="NullAssignment"/>
-        <exclude name="UseLocaleWithCaseConversions"/>
-    </rule>
-
-    <!-- Performance rules -->
-    <rule ref="rulesets/java/performance.xml">
-        <exclude name="AvoidInstantiatingObjectsInLoops"/>
-        <exclude name="ConsecutiveAppendsShouldReuse"/>
-        <exclude name="InsufficientStringBufferDeclaration"/>
-        <exclude name="SimplifyStartsWith"/>
-        <exclude name="UseStringBufferForStringAppends"/>
+        <exclude name="LooseCoupling"/>
+        <exclude name="UseCollectionIsEmpty"/>
     </rule>
 
     <!-- Style rules that are generally safe for Spring Boot -->
-    <rule ref="rulesets/java/codestyle.xml">
+    <rule ref="category/java/codestyle.xml">
         <exclude name="AtLeastOneConstructor"/>
         <exclude name="CallSuperInConstructor"/>
         <exclude name="CommentDefaultAccessModifier"/>
@@ -101,7 +49,7 @@
     </rule>
 
     <!-- Design rules -->
-    <rule ref="rulesets/java/design.xml">
+    <rule ref="category/java/design.xml">
         <exclude name="AbstractClassWithoutAnyMethod"/>
         <exclude name="AvoidThrowingRawExceptionTypes"/>
         <exclude name="AvoidUncheckedExceptionsInSignatures"/>
@@ -129,10 +77,34 @@
         <exclude name="UseUtilityClass"/>
     </rule>
 
+    <!-- Error-prone rules useful for modern Java/Spring code -->
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="AvoidFieldNameMatchingTypeName"/>
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="CloneMethodMustImplementCloneable"/>
+        <exclude name="MissingSerialVersionUID"/>
+        <exclude name="NullAssignment"/>
+        <exclude name="UseLocaleWithCaseConversions"/>
+    </rule>
+
     <!-- Multithreading -->
-    <rule ref="rulesets/java/multithreading.xml">
+    <rule ref="category/java/multithreading.xml">
         <exclude name="DoNotUseThreads"/>
         <exclude name="UseConcurrentHashMap"/>
+    </rule>
+
+    <!-- Performance rules -->
+    <rule ref="category/java/performance.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+        <exclude name="ConsecutiveAppendsShouldReuse"/>
+        <exclude name="InsufficientStringBufferDeclaration"/>
+        <exclude name="SimplifyStartsWith"/>
+        <exclude name="UseStringBufferForStringAppends"/>
+    </rule>
+
+    <!-- Security rules -->
+    <rule ref="category/java/security.xml">
+        <exclude name="HardCodedCryptoKey"/>
     </rule>
 
 </ruleset>
