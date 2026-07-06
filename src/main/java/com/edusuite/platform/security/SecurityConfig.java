@@ -1,6 +1,7 @@
 package com.edusuite.platform.security;
 
 import com.edusuite.platform.tenant.TenantIdentifierFilter;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,6 +10,10 @@ import org.springframework.security.oauth2.server.resource.web.authentication.Be
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@SuppressFBWarnings(
+        value = "SPRING_CSRF_PROTECTION_DISABLED",
+        justification = "Stateless JWT resource server: CSRF protection is not applicable for bearer-token APIs."
+)
 public class SecurityConfig {
 
     @Bean

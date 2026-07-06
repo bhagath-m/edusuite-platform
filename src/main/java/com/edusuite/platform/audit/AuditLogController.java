@@ -31,8 +31,11 @@ public class AuditLogController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AuditLog>> getAuditLogs() {
-        return ResponseEntity.ok(auditLogService.findByCurrentTenant());
+    public ResponseEntity<List<AuditLogResponse>> getAuditLogs() {
+        return ResponseEntity.ok(
+                auditLogService.findByCurrentTenant().stream()
+                        .map(AuditLogResponse::from)
+                        .toList());
     }
 
     /**
@@ -40,7 +43,7 @@ public class AuditLogController {
      * Actor and tenant are derived from the request context, not client input.
      */
     @PostMapping
-    public ResponseEntity<AuditLog> createAuditLog(@Valid @RequestBody CreateAuditLogRequest request) {
+    public ResponseEntity<AuditLogResponse> createAuditLog(@Valid @RequestBody CreateAuditLogRequest request) {
         String actor = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
                 .map(Authentication::getName)
                 .orElse("anonymous");
@@ -55,7 +58,7 @@ public class AuditLogController {
                 null
         );
         AuditLog saved = auditLogRepository.save(auditLog);
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(AuditLogResponse.from(saved));
     }
 
     public record CreateAuditLogRequest(

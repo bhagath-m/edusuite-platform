@@ -19,8 +19,12 @@ public class HibernateMultiTenancyConfig implements HibernatePropertiesCustomize
 
     @Override
     public void customize(Map<String, Object> hibernateProperties) {
-        hibernateProperties.put(org.hibernate.cfg.AvailableSettings.MULTI_TENANT_CONNECTION_PROVIDER, connectionProvider);
-        hibernateProperties.put(org.hibernate.cfg.AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER, tenantIdentifierResolver);
+        hibernateProperties.put(
+                org.hibernate.cfg.AvailableSettings.MULTI_TENANT_CONNECTION_PROVIDER,
+                connectionProvider);
+        hibernateProperties.put(
+                org.hibernate.cfg.AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER,
+                tenantIdentifierResolver);
         // NOTE FOR WHOEVER BUILDS THIS FIRST: property constant names / required companion
         // settings occasionally shift between Hibernate minor versions. Spring Boot 3.3.4 ships
         // Hibernate 6.5.x. If the build fails on these constants, check

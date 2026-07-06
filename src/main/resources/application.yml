@@ -2,6 +2,10 @@ spring:
   application:
     name: edusuite-platform
 
+  threads:
+    virtual:
+      enabled: true
+
   datasource:
     url: jdbc:postgresql://localhost:5432/edusuite
     username: edusuite_app

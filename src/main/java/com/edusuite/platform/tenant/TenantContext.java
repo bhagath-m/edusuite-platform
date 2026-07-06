@@ -26,12 +26,12 @@ public final class TenantContext {
     public static UUID get() {
         UUID tenantId = CURRENT_TENANT.get();
         if (tenantId == null) {
-            throw new IllegalStateException(
-                    "No tenant set on the current thread. Every authenticated request must pass "
-                  + "through TenantIdentifierFilter before reaching persistence code. If this is a "
-                  + "background job / scheduled task, it must explicitly call TenantContext.runAs(...) "
-                  + "with an explicit tenant id — there is no such thing as a tenant-less DB operation "
-                  + "in this system.");
+            throw new IllegalStateException("""
+                    No tenant set on the current thread. Every authenticated request must pass \
+                    through TenantIdentifierFilter before reaching persistence code. If this is a \
+                    background job / scheduled task, it must explicitly call TenantContext.runAs(...) \
+                    with an explicit tenant id — there is no such thing as a tenant-less DB operation \
+                    in this system.""");
         }
         return tenantId;
     }

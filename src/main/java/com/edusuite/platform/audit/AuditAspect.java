@@ -44,6 +44,7 @@ public class AuditAspect {
     }
 
     @Around("@annotation(audited)")
+    @SuppressWarnings({"IllegalThrows", "IllegalCatch"})
     public Object audit(ProceedingJoinPoint joinPoint, Audited audited) throws Throwable {
         Object result = joinPoint.proceed();
 
