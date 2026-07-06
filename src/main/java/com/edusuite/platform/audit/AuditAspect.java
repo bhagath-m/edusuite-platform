@@ -2,9 +2,9 @@ package com.edusuite.platform.audit;
 
 import com.edusuite.platform.tenant.TenantContext;
 import com.edusuite.platform.tenant.TenantScopedEntity;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -158,7 +158,7 @@ public class AuditAspect {
             Map<String, Object> map = objectMapper.convertValue(entity, new TypeReference<>() {
             });
             return objectMapper.writeValueAsString(map);
-        } catch (JsonProcessingException ex) {
+        } catch (JacksonException ex) {
             return NULL_SNAPSHOT;
         }
     }
