@@ -23,5 +23,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build with Maven
-        run: ./mvnw clean verify
+      - name: Build and install with Maven
+        run: ./mvnw clean install
+
+      - name: Run e2e automation suite
+        run: ./mvnw -f automation/pom.xml clean verify
