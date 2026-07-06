@@ -36,6 +36,20 @@
             "claim.name": "tenant_id",
             "jsonType.label": "String"
           }
+        },
+        {
+          "name": "preferred_username",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "username",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "preferred_username",
+            "jsonType.label": "String"
+          }
         }
       ]
     }
@@ -55,9 +69,12 @@
   "users": [
     {
       "username": "admin@tenant-a.test",
+      "firstName": "Admin",
+      "lastName": "TenantA",
       "enabled": true,
       "email": "admin@tenant-a.test",
       "emailVerified": true,
+      "requiredActions": [],
       "credentials": [
         { "type": "password", "value": "password123", "temporary": false }
       ],
@@ -68,9 +85,12 @@
     },
     {
       "username": "admin@tenant-b.test",
+      "firstName": "Admin",
+      "lastName": "TenantB",
       "enabled": true,
       "email": "admin@tenant-b.test",
       "emailVerified": true,
+      "requiredActions": [],
       "credentials": [
         { "type": "password", "value": "password123", "temporary": false }
       ],
