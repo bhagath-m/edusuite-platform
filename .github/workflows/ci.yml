@@ -88,7 +88,9 @@ jobs:
 
       - name: Run SonarCloud analysis
         if: env.SONAR_TOKEN != ''
-        run: ./mvnw clean verify -q sonar:sonar -Dsonar.token=$SONAR_TOKEN
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./mvnw clean verify -q sonar:sonar -Dsonar.token=$SONAR_TOKEN -Dsonar.organization=bhagath-m -Dsonar.host.url=https://sonarcloud.io
 
   codeql:
     runs-on: ubuntu-latest
