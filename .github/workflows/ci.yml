@@ -41,14 +41,15 @@ jobs:
       - name: Run static analysis
         run: ./mvnw checkstyle:check spotbugs:check pmd:check -q
 
+      - name: Run e2e automation suite
+        run: ./mvnw -f automation/pom.xml clean verify -q
+
       - name: Run OWASP Dependency-Check
+        timeout-minutes: 12
         continue-on-error: true
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: ./mvnw dependency-check:check -q -DfailBuildOnCVSS=7
-
-      - name: Run e2e automation suite
-        run: ./mvnw -f automation/pom.xml clean verify -q
 
       - name: Upload OWASP report
         if: always()
