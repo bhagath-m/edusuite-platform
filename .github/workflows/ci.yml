@@ -67,7 +67,9 @@ jobs:
   sonar:
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'pull_request' && secrets.SONAR_TOKEN != ''
+    if: github.event_name == 'pull_request'
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     steps:
       - name: Check out repository
@@ -83,8 +85,7 @@ jobs:
           cache: maven
 
       - name: Run SonarCloud analysis
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        if: env.SONAR_TOKEN != ''
         run: ./mvnw clean verify -q sonar:sonar -Dsonar.token=$SONAR_TOKEN
 
   codeql:
