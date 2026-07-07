@@ -9,6 +9,7 @@ on:
       - main
 
 env:
+  # java-version: '26'
   JAVA_VERSION: '26'
   JAVA_DISTRIBUTION: 'temurin'
 
