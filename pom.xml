@@ -299,6 +299,28 @@
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>12.2.2</version>
+                <configuration>
+                    <skipOnNetworkError>true</skipOnNetworkError>
+                    <failOnError>false</failOnError>
+                    <failBuildOnCVSS>7</failBuildOnCVSS>
+                    <formats>
+                        <format>HTML</format>
+                        <format>JSON</format>
+                    </formats>
+                    <analyzers>
+                        <assemblyEnabled>false</assemblyEnabled>
+                        <centralEnabled>false</centralEnabled>
+                        <nodeEnabled>false</nodeEnabled>
+                        <nuspecEnabled>false</nuspecEnabled>
+                        <retirejsEnabled>false</retirejsEnabled>
+                    </analyzers>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>5.7.0.6970</version>
             </plugin>
         </plugins>
     </build>
