@@ -68,10 +68,9 @@ public class TenantAwareConnectionProvider implements MultiTenantConnectionProvi
         // pool, in case it was ever used outside a clean transaction boundary (autocommit edge
         // cases). SET LOCAL should already have reset at commit, so this is a no-op in the
         // normal path.
-        try (PreparedStatement ps = connection.prepareStatement("SELECT set_config('app.current_tenant', '', false)")) {
+        try (connection; PreparedStatement ps = connection.prepareStatement(
+                "SELECT set_config('app.current_tenant', '', false)")) {
             ps.execute();
-        } finally {
-            connection.close();
         }
     }
 

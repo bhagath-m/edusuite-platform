@@ -27,6 +27,7 @@ import java.util.UUID;
  * the only remaining safeguard.
  */
 @MappedSuperclass
+@SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 public abstract class TenantScopedEntity {
 
     @Id

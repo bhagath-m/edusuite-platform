@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -32,6 +34,7 @@ import java.util.UUID;
 @Component
 public class AuditAspect {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AuditAspect.class);
     private static final String EMPTY_SNAPSHOT = "{}";
     private static final String NULL_SNAPSHOT = "null";
 
@@ -44,7 +47,7 @@ public class AuditAspect {
     }
 
     @Around("@annotation(audited)")
-    @SuppressWarnings({"IllegalThrows", "IllegalCatch"})
+    @SuppressWarnings({"IllegalThrows", "IllegalCatch", "PMD.AvoidCatchingGenericException"})
     public Object audit(ProceedingJoinPoint joinPoint, Audited audited) throws Throwable {
         Object result = joinPoint.proceed();
 
@@ -54,6 +57,9 @@ public class AuditAspect {
             // Audit logging must never break business logic. Swallow and continue so that a
             // transient JSON or persistence failure does not undo a successful operation.
             // A production system would forward this to a structured error reporter.
+            if (LOG.isWarnEnabled()) {
+                LOG.warn("Audit logging failed for action {} on {}", audited.action(), joinPoint.getSignature(), ex);
+            }
         }
 
         return result;

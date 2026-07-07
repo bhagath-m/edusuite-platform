@@ -1,25 +1,22 @@
 package com.edusuite.platform.security;
 
 import com.edusuite.platform.tenant.TenantIdentifierFilter;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@SuppressFBWarnings(
-        value = "SPRING_CSRF_PROTECTION_DISABLED",
-        justification = "Stateless JWT resource server: CSRF protection is not applicable for bearer-token APIs."
-)
 public class SecurityConfig {
 
     @Bean
+    @SuppressWarnings("PMD.SignatureDeclareThrowsException")
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // stateless JWT API - re-enable if any session-cookie
+            .csrf(AbstractHttpConfigurer::disable) // stateless JWT API - re-enable if any session-cookie
                                            // based flows are added later (e.g. server-rendered
                                            // admin pages)
             .authorizeHttpRequests(auth -> auth
