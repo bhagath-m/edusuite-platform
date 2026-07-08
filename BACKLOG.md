@@ -2,20 +2,20 @@
 
 Live ticket checklist for EduSuite. Keep this current at the end of each agent session. Detailed spec lives in `/docs/05_ROADMAP_MILESTONES.md` and `/docs/08_AI_AGENT_EXECUTION_PLAN.md`.
 
-## Milestone 0 — Foundations
+## Milestone 0 — Foundations (complete)
 
 - [x] Repo scaffold: Spring Boot 3 project (Java 21), Spring Modulith, base package structure, `docker-compose.yml`, CI workflow.
 - [x] `Tenant` entity + Flyway migration + `TenantRepository`.
 - [x] RLS policy + Postgres session variable wiring + `TenantContext` filter.
 - [x] Cross-tenant isolation test (`TenantIsolationIT`) against real Postgres via Testcontainers.
-- [ ] Keycloak reproducibility: verified import/setup script, Spring Security OAuth2 resource-server config, one working login → JWT → authenticated request flow.
-- [ ] Spring Modulith skeleton: two modules + one cross-module event + Modulith verification test.
-- [ ] Audit logging aspect wired to one entity end-to-end.
-- [ ] `CONTEXT.md`, `DECISIONS.md`, `BACKLOG.md` initialized and committed.
+- [x] Keycloak reproducibility: verified import/setup script, Spring Security OAuth2 resource-server config, one working login → JWT → authenticated request flow.
+- [x] Spring Modulith skeleton: two modules + one cross-module event + Modulith verification test.
+- [x] Audit logging aspect wired to one entity end-to-end.
+- [x] Initialize `CONTEXT.md`, `DECISIONS.md`, `BACKLOG.md` and commit.
 
 **Exit criterion:** an engineer can log in, hit one tenant-scoped API, see an audit log entry, and the whole thing deploys via a single pipeline run.
 
-## Milestone 1 — Walking Skeleton / Single-Module Pilot (Attendance)
+## Milestone 1 — Walking Skeleton / Single-Module Pilot (Attendance) (current, up next)
 
 - [ ] Tenant self-signup + setup wizard (institute name, board, academic year, first admin).
 - [ ] Core academic structure: `AcademicYear`, `Course`, `Section` entities + CRUD APIs + migrations.

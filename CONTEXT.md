@@ -12,11 +12,12 @@ Small and mid-sized education institutes run on disconnected tools — spreadshe
 - **Parents/students** — view attendance, fees, notices via a community app.
 
 ## Tech stack
-- Java 21, Spring Boot 3.3.x, Spring Modulith
+- Java 26, Spring Boot 4.1.0, Spring Modulith 2.1.0
 - PostgreSQL with Row-Level Security (RLS) for tenant isolation
 - Hibernate multi-tenancy via `TenantContext` + `TenantIdentifierFilter`
 - Keycloak as OAuth2 / OIDC identity provider
 - Redis (caching / sessions)
+- Testcontainers 1.21.4 for integration tests
 - Docker Compose for local dev
 - Maven for builds
 
@@ -27,26 +28,26 @@ Small and mid-sized education institutes run on disconnected tools — spreadshe
 - JWT `tenant_id` claim drives the tenant context; never from client input.
 
 ## Current milestone status
-**Milestone 0 — Foundations (in progress)**
+**Milestone 0 — Foundations (complete)**
 
 ## Built so far
-- Spring Boot 3 + Java 21 scaffold with Spring Modulith dependency.
+- Java 26 + Spring Boot 4.1.0 + Spring Modulith 2.1.0 scaffold.
 - `Tenant` entity + repository (Ticket 2 in `08_AI_AGENT_EXECUTION_PLAN.md`).
 - Postgres RLS wiring: `TenantContext`, `TenantIdentifierFilter`, `CurrentTenantIdentifierResolverImpl`, `TenantAwareConnectionProvider`.
 - Restricted `edusuite_app` Postgres role so RLS is actually enforced.
 - `academic_year` dummy tenant-scoped table + `TenantIsolationIT` cross-tenant test.
 - Keycloak realm export with `tenant_id` claim mapper and test users.
+- Spring Modulith module skeleton with ping/pong modules, cross-module event, and a verification test.
+- Audit logging aspect wired end-to-end.
 - Docker Compose for Postgres, Redis, Keycloak.
 - GitHub Actions CI workflow (build/test on PR).
 
 ## Not built yet (Milestone 0)
-- Reproducible Keycloak import / setup script verification.
-- Spring Modulith module skeleton with two modules + cross-module event.
-- Audit logging aspect wired end-to-end.
+_Empty. All Milestone 0 scope is complete except deferred work:_
 - Cloud / Terraform infra (deferred until Milestone 2).
 
 ## Up next
-Milestone 1: Attendance vertical slice — tenant self-signup wizard, academic structure (course/section), student import, attendance marking, and basic reports.
+**Milestone 1** — Attendance vertical slice: tenant self-signup wizard, academic structure (course/section), student import, attendance marking, and basic reports.
 
 ## Security/tenancy guardrails for agents
 - Do not derive tenant from headers, query params, path, or body. Only from the authenticated JWT's `tenant_id` claim via `TenantIdentifierFilter`.
