@@ -22,6 +22,6 @@ class PingEventPublisherTest {
 
         ArgumentCaptor<PongRequestedEvent> captor = ArgumentCaptor.forClass(PongRequestedEvent.class);
         verify(applicationEventPublisher).publishEvent(captor.capture());
-        assertThat(captor.getValue().getCorrelationId()).isEqualTo(correlationId);
+        assertThat(captor.getValue().correlationId()).isEqualTo(correlationId);
     }
 }

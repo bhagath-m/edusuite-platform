@@ -19,6 +19,6 @@ public class PongEventListener {
 
     @EventListener
     public void onPongRequested(PongRequestedEvent event) {
-        pongService.recordPong(event.getCorrelationId());
+        pongService.recordPong(event.correlationId());
     }
 }

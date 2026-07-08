@@ -2,7 +2,7 @@ package com.edusuite.platform.audit;
 
 import com.edusuite.platform.tenant.TenantContext;
 import com.edusuite.platform.tenant.TenantScopedEntity;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.junit.jupiter.api.AfterEach;

@@ -61,7 +61,7 @@ public abstract class E2eBaseTest {
             .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofMinutes(2)));
 
     @Container
-    protected static final GenericContainer<?> APP = new GenericContainer<>(DockerImageName.parse("eclipse-temurin:21-jre-alpine"))
+    protected static final GenericContainer<?> APP = new GenericContainer<>(DockerImageName.parse("eclipse-temurin:26-jre-alpine"))
             .withCopyFileToContainer(
                     MountableFile.forHostPath("../target/edusuite-platform-0.1.0-SNAPSHOT.jar"),
                     "/app.jar"

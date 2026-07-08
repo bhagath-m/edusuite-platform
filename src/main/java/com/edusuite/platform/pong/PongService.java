@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
 
 /**
  * Public API of the {@code pong} module.
@@ -29,7 +28,7 @@ public class PongService {
      * @return all correlation ids received so far, in insertion order
      */
     public List<String> getReceivedCorrelationIds() {
-        return receivedCorrelationIds.stream().collect(Collectors.toList());
+        return receivedCorrelationIds.stream().toList();
     }
 
     /**
