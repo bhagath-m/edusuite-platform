@@ -39,13 +39,20 @@ This file records major architectural and design decisions made during implement
 - Consequences: IDs are opaque, non-sequential, and safe across tenants. Slightly larger storage and index cost than BIGINT, but acceptable for the isolation and merge safety benefits.
 
 ## 2024-007: Java 21 + Spring Boot 3
-- Status: DECIDED
+- Status: SUPERSEDED
 - Context: The platform targets a small team and needs long-term support, modern language features, and a mature ecosystem.
 - Decision: Build on Java 21 (LTS) and Spring Boot 3.3.x with Spring Modulith, Spring Security OAuth2 resource server, and Flyway.
 - Consequences: Developers can use virtual threads and newer Java APIs. Dependency versions are managed by Spring Boot BOM. Spring Security 6 configuration patterns must be followed.
+- Superseded by: 2025-001 (Java 26 + Spring Boot 4.1.0)
 
 ## 2024-008: Local-first environment with Docker Compose
 - Status: DECIDED
 - Context: The project is bootstrapped on free-tier resources and small-team cadence; cloud cost must be deferred until there is a design partner.
 - Decision: Run Postgres, Redis, and Keycloak locally via Docker Compose through Milestone 0 and Milestone 1. Defer Terraform/AWS until Milestone 2.
 - Consequences: Fast local iteration and zero cloud spend early. A migration to staging infra will be needed before the Milestone 2 pilot.
+
+## 2025-001: Java 26 + Spring Boot 4.1.0
+- Status: DECIDED
+- Context: The platform is on Spring Boot 4.1.0 / Java 26, upgraded as part of the Milestone 0 hardening/upgrade pass. This aligns with the Spring Boot 4 baseline and enables Java 26 preview/stable features.
+- Decision: Use Java 26 as the compile/runtime JDK and Spring Boot 4.1.0 (plus Spring Modulith 2.1.0, Testcontainers 1.21.4, ArchUnit 1.4.2) as the application baseline.
+- Consequences: Developers must use JDK 26, the CI matrix uses JDK 26, and dependency overrides (ArchUnit, Testcontainers) are captured in `pom.xml` `dependencyManagement`.
